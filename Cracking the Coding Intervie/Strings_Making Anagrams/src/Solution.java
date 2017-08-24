@@ -8,22 +8,30 @@ import java.math.*;
 import java.util.regex.*;
 public class Solution {
     public static int numberNeeded(String first, String second) {
-        int count = 0;
         int sum = 0;
-        StringBuilder sb1 = new StringBuilder(first);
-        StringBuilder sb2 = new StringBuilder(second);
-        for(int i = 0; i < sb1.length();i++){
-            for(int j= 0;j <sb2.length();j++){
-                if(sb1.charAt(i)==sb2.charAt(j)){
-                    sb1.deleteCharAt(i);
-                    sb2.deleteCharAt(j);
+        int count = 0;
+        LinkedList<Character> list1 = new LinkedList<>();
+        LinkedList<Character> list2 = new LinkedList<>();
+for(int i = 0; i < first.length();i++){
+    list1.add(first.charAt(i));
+}
+for(int i = 0;i< second.length();i++){
+    char currChar = second.charAt(i);
+    int index;
+    if(list1.contains(currChar)){
+        index = list1.indexOf(currChar);
+        list2.add(currChar);
+        list1.remove(index);
+        count +=2;
 
-                    count++;
-                }
-            }
-        }
-        sum = sb1.length() + sb2.length();
-      //  System.out.println(sb1+"   " +sb2 );
+    }
+}
+
+
+        sum = first.length() + second.length();
+     //  System.out.println(list1+"   " +list2 );
+       // System.out.println(count);
+       sum = sum-count;
         return sum;
     }
 
