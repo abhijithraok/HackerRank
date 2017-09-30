@@ -6,59 +6,27 @@ public class Solution {
 
     public static boolean isBalanced(String expression) {
         boolean b = true;
+        Stack<Character> brackets = new Stack<Character>();
+
         if(expression.length() == 1){
             return false;
         }
         if(expression.length() %2 != 0){
             return false;
         }
-        ArrayList<Character> charList = new ArrayList();
-
-        for(int i = 0;i < expression.length();i++){
-            char currChar = expression.charAt(i);
-            charList.add(currChar);
-
-        }
-        while (!charList.isEmpty()) {
-            Character firstChar = charList.get(0);
-            Character secondChar = charList.get(1);
-            Character lastChar = charList.get(charList.size() - 1);
-
-            if (firstChar.equals('{') && lastChar.equals('}')) {
-                b= true;
-                charList.remove(0);
-                charList.remove(charList.size()-1);
-            }
-            else if (firstChar.equals('(') && lastChar.equals(')')) {
-                b= true;
-                charList.remove(0);
-                charList.remove(charList.size()-1);
-            }
-            else if (firstChar.equals('[') && lastChar.equals(']')) {
-                b= true;
-                charList.remove(0);
-                charList.remove(charList.size()-1);
-            }
-            else if(firstChar.equals('{') && secondChar.equals('}')){
-                charList.remove(0);
-                charList.remove(0);
-            }
-            else if(firstChar.equals('(') && secondChar.equals(')')){
-                charList.remove(0);
-                charList.remove(0);
-            }
-            else if(firstChar.equals('[') && secondChar.equals(']')){
-                charList.remove(0);
-                charList.remove(0);
-            }
-            else {
-
+        for(int i=0; i<expression.length(); i++){
+            char next = expression.charAt(i);
+            if(next == '{')  brackets.add('}');
+            else if(next == '[') brackets.add(']');
+            else if(next == '(') brackets.add(')');
+            else if(brackets.empty() || brackets.pop() != next) {
                 return false;
             }
-
         }
-        return b;
+        return brackets.empty();
     }
+
+
 
 
 
